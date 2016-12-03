@@ -1,0 +1,25 @@
+{
+  "name": "image-search-neckers",
+  "version": "1.0.0",
+  "description": "Image Search Abstraction Layer",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NeckersBOX/img-search.git"
+  },
+  "author": "Davide Francesco Merico",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NeckersBOX/img-search/issues"
+  },
+  "homepage": "https://github.com/NeckersBOX/img-search#readme",
+  "dependencies": {
+    "co": "^4.6.0",
+    "express": "^4.14.0",
+    "fs": "0.0.1-security",
+    "mongodb": "^2.2.12"
+  }
+}
