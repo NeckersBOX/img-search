@@ -1,6 +1,6 @@
 {
   "name": "image-search-neckers",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Image Search Abstraction Layer",
   "main": "server.js",
   "scripts": {
