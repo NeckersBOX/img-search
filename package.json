@@ -19,11 +19,10 @@
   },
   "homepage": "https://github.com/NeckersBOX/img-search#readme",
   "dependencies": {
-    "co": "^4.6.0",
     "express": "^4.14.0",
     "fs": "0.0.1-security",
-    "google-search": "0.0.4",
     "marked": "^0.3.6",
-    "mongodb": "^2.2.12"
+    "mongodb": "^2.2.12",
+    "request": "^2.79.0"
   }
 }
