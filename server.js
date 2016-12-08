@@ -8,6 +8,37 @@ const request = require ('request');
 
 let app = express ();
 
+app.get ('/latest', (req, res) => {
+  res.writeHead (200, { 'Content-Type': 'application/json' });
+
+  mongodb.connect (process.env.mongoauth, (err, db) => {
+    if ( err ) {
+      res.end (JSON.stringify ({ error: 'Error in mongodb.connect' }));
+      return;
+    }
+
+    let collection = db.collection ('recent_img_search');
+    collection.find ({}, {
+      sort: { time: -1 }
+    }).limit (10).toArray ((err, docs) => {
+      if ( err ) {
+        res.end (JSON.stringify ([]));
+        db.close ();
+        return;
+      }
+
+      res.end (JSON.stringify (docs.map ((doc) =>
+        Object.assign ({}, {
+          query: doc.query,
+          date: new Date (doc.time).toDateString ()
+        })
+      )));
+
+      db.close();
+    });
+  })
+});
+
 app.get ('/search/*', (req, res, next) => {
   if ( req.params[0] == '' ) {
     next ();
@@ -58,13 +89,22 @@ app.get ('/search/*', (req, res, next) => {
 
         collection.insert ({
           _id: next_id,
-          date: Math.floor (new Date ().getTime () / 1000),
+          time: Math.floor (new Date ().getTime ()),
           query: query
         });
 
         if ( 'value' in parsed )
-          res.end (JSON.stringify (parsed.value));
+          res.end (JSON.stringify (parsed.value.map (object =>
+            Object.assign ({}, {
+              title: object.name,
+              thumb: object.thumbnailUrl,
+              image: object.contentUrl,
+              link: object.hostPageUrl
+            })
+          )));
         else res.end (JSON.stringify ([]));
+
+        db.close ();
       });
     });
   });
