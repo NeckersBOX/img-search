@@ -30,7 +30,7 @@ app.get ('/latest', (req, res) => {
       res.end (JSON.stringify (docs.map ((doc) =>
         Object.assign ({}, {
           query: doc.query,
-          date: new Date (doc.time).toDateString ()
+          date: new Date (doc.time).toString ()
         })
       )));
 
@@ -90,7 +90,7 @@ app.get ('/search/*', (req, res, next) => {
         collection.insert ({
           _id: next_id,
           time: Math.floor (new Date ().getTime ()),
-          query: query
+          query: req.params[0]
         });
 
         if ( 'value' in parsed )
